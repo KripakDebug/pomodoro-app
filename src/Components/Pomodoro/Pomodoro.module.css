@@ -1,0 +1,145 @@
+.timerWrap {
+    display: flex;
+    margin-top: 200px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.timerSetting {
+    position: absolute;
+    top: 10px;
+    font-size: 17px;
+    color: #eae9e9;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.22);
+    outline: none;
+    border: none;
+    transition: .3s;
+    padding: 10px;
+    right: 10px;
+}
+.timerSetting:hover {
+    color: #ffffff;
+    transition: .3s;
+    background: rgba(255, 255, 255, 0.3);
+}
+.timerUpdate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#active {
+    background: rgba(0, 0, 0, 0.15);
+    font-weight: bold ;
+}
+.timerUpdate button {
+    border: none;
+    color: white;
+    margin: 0px;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 2px 12px;
+    height: 28px;
+    cursor: pointer;
+    background: none;
+    box-shadow: none;
+    font-weight: 300;
+}
+.timer {
+    height: fit-content;
+    border-radius: 10px;
+    width: 500px;
+    padding: 25px 55px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.timer h1 {
+    font-size: 125px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 0;
+}
+.listBtn {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.listBtn .buttonTimerActive {
+    cursor: pointer;
+    border: none;
+    padding: 0px 12px;
+    border-radius: 4px;
+    box-shadow: rgb(235, 235, 235) 0px 6px 0px;
+    font-family: sans-serif;
+    font-size: 22px;
+    height: 55px;
+    color: rgb(56, 133, 138);
+    font-weight: bold;
+    width: 200px;
+    background-color: white;
+    transition: color 0.5s ease-in-out 0s;
+}
+.refreshTimer {
+    right: 10px;
+    position: absolute;
+    color: #fff;
+    font-size: 31px;
+}
+
+.nextTimer {
+    color: #fff;
+position: absolute;
+    right: 50px;
+    opacity: 0;
+    font-size: 31px;
+    transition: .5s ease;
+    margin-left: 20px;
+}
+.nextTimerOpacity {
+    opacity: 1;
+    color: #fff;
+    transition: all .5s ease;
+    position: absolute;
+    right: 50px;
+    font-size: 31px;
+    margin-left: 20px;
+}
+.form {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+.form div > div {
+    width: 200px;
+}
+.form label {
+    margin-bottom: 3px;
+    font-size: 17px;
+    color: #000;
+}
+.form button {
+    margin-top: 20px;
+    outline: none;
+    border-radius: 10px;
+    background: #fff;
+    padding: 9px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    border: 1px solid #000;
+}
