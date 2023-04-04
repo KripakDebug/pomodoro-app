@@ -8,8 +8,8 @@ import favicon from './../../icons/favicon.ico';
 import faviconGreen from './../../icons/favicon-green.ico';
 import faviconBlue from './../../icons/favicon-blue.ico';
 import faviconGray from './../../icons/favicon-gray.ico';
-import Timer from "./Timer/Timer";
-import ModalWindow from "./Modal/Modal";
+import Timer from "../Timer/Timer";
+import ModalWindow from "../Modal/Modal";
 import classNames from "classnames";
 const Pomodoro = () => {
 

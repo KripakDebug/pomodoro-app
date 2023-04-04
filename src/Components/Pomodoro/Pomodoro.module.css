@@ -42,9 +42,9 @@
     align-items: center;
     justify-content: center;
 }
-#active {
-    background: rgba(0, 0, 0, 0.15);
-    font-weight: bold ;
+.active {
+    background: rgba(0, 0, 0, 0.15) !important;
+    font-weight: bold !important;
 }
 .timerUpdate button {
     border: none;
