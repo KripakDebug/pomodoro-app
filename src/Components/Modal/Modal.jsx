@@ -7,9 +7,9 @@ function ModalWindow(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div>
-            <button onClick={showModal} className={s.timerSetting}><SettingOutlined/> Setting Timer</button>
-        <Modal title="Setting Timer" open={isModalOpen} footer={null} onOk={handleOk}
-               onCancel={handleCancel}>
+            <button onClick={toggleModal} className={s.timerSetting}><SettingOutlined/> Setting Timer</button>
+        <Modal title="Setting Timer" open={isModalOpen} footer={null} onOk={toggleModal}
+               onCancel={toggleModal}>
             <form className={s.form} onSubmit={props.onSubmit}>
                 <div>
                     <label htmlFor="focusTime">Focus</label>
@@ -23,23 +23,15 @@ function ModalWindow(props) {
                     <label htmlFor="longBrake">Long Brake</label>
                     <InputNumber min={1} max={99} id={'longBrake'} type="number"/>
                 </div>
-                <button onClick={handleOk}>Submit</button>
+                <button onClick={toggleModal}>Submit</button>
             </form>
         </Modal>
         </div>
     )
 
-    function showModal() {
-        setIsModalOpen(true);
-    };
-
-    function handleOk() {
-        setIsModalOpen(false);
-    };
-
-    function handleCancel() {
-        setIsModalOpen(false);
-    };
+   function toggleModal() {
+        setIsModalOpen(prevState => !prevState);
+   }
 
 }
 
