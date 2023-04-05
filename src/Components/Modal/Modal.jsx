@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import s from "../Pomodoro/Pomodoro.module.css";
 import {InputNumber, Modal} from "antd";
+import {SettingOutlined} from "@ant-design/icons";
 
-const ModalWindow = (props) => {
+function ModalWindow(props) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <Modal title="Setting Timer" open={props.isModalOpen} footer={null} onOk={props.handleOk} onCancel={props.handleCancel}>
+        <div>
+            <button onClick={showModal} className={s.timerSetting}><SettingOutlined/> Setting Timer</button>
+        <Modal title="Setting Timer" open={isModalOpen} footer={null} onOk={handleOk}
+               onCancel={handleCancel}>
             <form className={s.form} onSubmit={props.onSubmit}>
                 <div>
                     <label htmlFor="focusTime">Focus</label>
@@ -18,10 +23,24 @@ const ModalWindow = (props) => {
                     <label htmlFor="longBrake">Long Brake</label>
                     <InputNumber min={1} max={99} id={'longBrake'} type="number"/>
                 </div>
-                <button onClick={props.handleOk}>Submit</button>
+                <button onClick={handleOk}>Submit</button>
             </form>
         </Modal>
+        </div>
     )
+
+    function showModal() {
+        setIsModalOpen(true);
+    };
+
+    function handleOk() {
+        setIsModalOpen(false);
+    };
+
+    function handleCancel() {
+        setIsModalOpen(false);
+    };
+
 }
 
 export default ModalWindow;
