@@ -27,7 +27,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
         if (currentInterval === 'relax' || currentInterval === 'longRelax') {
             document.title = `${formatTime(timer)} - Time for a break!`;
         }
-    }, [timer, currentInterval]);
+    }, [timer, currentInterval, stopTimer, setPauseTimer, setCurrentInterval, setTimer, shortBrake, focus]);
 
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
             setTimer(longBrake);
             setBreakCount(0);
         }
-    }, [breakCount]);
+    }, [breakCount, longBrake, setCurrentInterval, setTimer]);
 
     return (
         <div className={s.timer}>

@@ -35,39 +35,15 @@ function Pomodoro() {
                         <link rel="icon" href={faviconBlue} type="image/x-icon"/> : ''}
                     {pauseTimer === true && <link rel="icon" href={faviconGray} type="image/x-icon"/>}
                 </Helmet>
-                <ModalWindow onSubmit={onSubmit}/>
+                <ModalWindow currentInterval={currentInterval} setTimer={setTimer}
+                             setFocus={setFocus} setShortBrake={setShortBrake} setLongBrake={setLongBrake}/>
+
                 <Timer setPauseTimer={setPauseTimer} timer={timer} setTimer={setTimer}
                        shortBrake={shortBrake} focus={focus} longBrake={longBrake}
                        setCurrentInterval={setCurrentInterval} currentInterval={currentInterval}/>
             </div>
         </div>
     )
-
-
-
-    function onSubmit(e) {
-        e.preventDefault()
-        if (currentInterval === 'focus') {
-            setTimer(e.target.focusTime.value * 60);
-        }
-        if (currentInterval === 'relax') {
-            setTimer(e.target.relaxTime.value * 60);
-        }
-        if (currentInterval === 'longRelax') {
-            setTimer(e.target.longBrake.value * 60);
-        }
-        if (e.target.focusTime.value !== '') {
-            setFocus(e.target.focusTime.value * 60);
-        }
-
-        if (e.target.relaxTime.value !== '') {
-            setShortBrake(e.target.relaxTime.value * 60);
-        }
-
-        if (e.target.longBrake.value !== '') {
-            setLongBrake(e.target.longBrake.value * 60);
-        }
-    };
 
 }
 
