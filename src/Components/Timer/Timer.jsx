@@ -3,10 +3,16 @@ import s from "../Pomodoro/Pomodoro.module.css";
 import {StepForwardOutlined, UndoOutlined} from "@ant-design/icons";
 import click from "../../audio/click.mp3";
 import timerSound from "../../audio/timergo.mp3";
+import favicon from "../../icons/favicon.ico";
+import faviconGreen from "../../icons/favicon-green.ico";
+import faviconBlue from "../../icons/favicon-blue.ico";
+import faviconGray from "../../icons/favicon-gray.ico";
+import {Helmet} from "react-helmet";
 
-function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrentInterval, setTimer, setPauseTimer}) {
+function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrentInterval, setTimer}) {
     const [running, setRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
+    const [pauseTimer, setPauseTimer] = useState(false);
     const [breakCount, setBreakCount] = useState(0);
 
     useEffect(() => {
@@ -27,7 +33,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
         if (currentInterval === 'relax' || currentInterval === 'longRelax') {
             document.title = `${formatTime(timer)} - Time for a break!`;
         }
-    }, [timer, currentInterval, stopTimer, setPauseTimer, setCurrentInterval, setTimer, shortBrake, focus]);
+    }, [timer, currentInterval, setPauseTimer, setCurrentInterval, setTimer, shortBrake, focus, stopTimer]);
 
 
     useEffect(() => {
@@ -40,6 +46,15 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
 
     return (
         <div className={s.timer}>
+            <Helmet>
+                {currentInterval === 'focus' && pauseTimer === false ?
+                    <link rel="icon" href={favicon} type="image/x-icon"/> : ''}
+                {currentInterval === 'relax' && pauseTimer === false ?
+                    <link rel="icon" href={faviconGreen} type="image/x-icon"/> : ''}
+                {currentInterval === 'longRelax' && pauseTimer === false ?
+                    <link rel="icon" href={faviconBlue} type="image/x-icon"/> : ''}
+                {pauseTimer === true && <link rel="icon" href={faviconGray} type="image/x-icon"/>}
+            </Helmet>
             <div className={s.timerUpdate}>
                 <button onClick={() => onClickTimer('focus')}
                         className={currentInterval === 'focus' && s.active}>Focus
