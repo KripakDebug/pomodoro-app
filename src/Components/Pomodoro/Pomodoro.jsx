@@ -20,7 +20,6 @@ function Pomodoro() {
     return (
         <div className={classes}>
             <div className={s.timerWrap}>
-
                 <ModalWindow currentInterval={currentInterval} setTimer={setTimer}
                              setFocus={setFocus} setShortBrake={setShortBrake} setLongBrake={setLongBrake}/>
 

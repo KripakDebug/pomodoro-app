@@ -8,6 +8,7 @@ import faviconGreen from "../../icons/favicon-green.ico";
 import faviconBlue from "../../icons/favicon-blue.ico";
 import faviconGray from "../../icons/favicon-gray.ico";
 import {Helmet} from "react-helmet";
+import Task from "../Task/Task";
 
 function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrentInterval, setTimer}) {
     const [running, setRunning] = useState(false);
@@ -45,42 +46,47 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
     }, [breakCount, longBrake, setCurrentInterval, setTimer]);
 
     return (
-        <div className={s.timer}>
-            <Helmet>
-                {currentInterval === 'focus' && pauseTimer === false ?
-                    <link rel="icon" href={favicon} type="image/x-icon"/> : ''}
-                {currentInterval === 'relax' && pauseTimer === false ?
-                    <link rel="icon" href={faviconGreen} type="image/x-icon"/> : ''}
-                {currentInterval === 'longRelax' && pauseTimer === false ?
-                    <link rel="icon" href={faviconBlue} type="image/x-icon"/> : ''}
-                {pauseTimer === true && <link rel="icon" href={faviconGray} type="image/x-icon"/>}
-            </Helmet>
-            <div className={s.timerUpdate}>
-                <button onClick={() => onClickTimer('focus')}
-                        className={currentInterval === 'focus' && s.active}>Focus
-                </button>
-                <button onClick={() => onClickTimer('relax')} className={currentInterval === 'relax' && s.active}>Short
-                    Brake
-                </button>
-                <button onClick={() => onClickTimer('longRelax')}
-                        className={currentInterval === 'longRelax' && s.active}>Long Brake
-                </button>
-            </div>
-            <h1>{formatTime(timer)}</h1>
-            <ul className={s.listBtn}>
-                <li>
-                    <button className={s.buttonTimerActive} onClick={running === false ? startTimer : stopTimer}>
-                        {running === false ? 'Start' : 'Pause'}
-                    </button>
-                </li>
-                <li className={running === true ? s.nextTimerOpacity : s.nextTimer}>
-                    {running === true && <StepForwardOutlined onClick={nextTimer}/>}
-                </li>
-                <li className={s.refreshTimer}>
-                    <UndoOutlined onClick={clearTimer}/>
-                </li>
-            </ul>
-        </div>
+       <div className={s.timerContainer}>
+           <div className={s.timer}>
+               <Helmet>
+                   {currentInterval === 'focus' && pauseTimer === false ?
+                       <link rel="icon" href={favicon} type="image/x-icon"/> : ''}
+                   {currentInterval === 'relax' && pauseTimer === false ?
+                       <link rel="icon" href={faviconGreen} type="image/x-icon"/> : ''}
+                   {currentInterval === 'longRelax' && pauseTimer === false ?
+                       <link rel="icon" href={faviconBlue} type="image/x-icon"/> : ''}
+                   {pauseTimer === true && <link rel="icon" href={faviconGray} type="image/x-icon"/>}
+               </Helmet>
+               <div className={s.timerUpdate}>
+                   <button onClick={() => onClickTimer('focus')}
+                           className={currentInterval === 'focus' && s.active}>Focus
+                   </button>
+                   <button onClick={() => onClickTimer('relax')} className={currentInterval === 'relax' && s.active}>Short
+                       Brake
+                   </button>
+                   <button onClick={() => onClickTimer('longRelax')}
+                           className={currentInterval === 'longRelax' && s.active}>Long Brake
+                   </button>
+               </div>
+               <h1>{formatTime(timer)}</h1>
+               <ul className={s.listBtn}>
+                   <li>
+                       <button className={s.buttonTimerActive} onClick={running === false ? startTimer : stopTimer}>
+                           {running === false ? 'Start' : 'Pause'}
+                       </button>
+                   </li>
+                   <li className={running === true ? s.nextTimerOpacity : s.nextTimer}>
+                       {running === true && <StepForwardOutlined onClick={nextTimer}/>}
+                   </li>
+                   <li className={s.refreshTimer}>
+                       <UndoOutlined onClick={clearTimer}/>
+                   </li>
+               </ul>
+
+           </div>
+           <Task/>
+
+       </div>
     )
 
 

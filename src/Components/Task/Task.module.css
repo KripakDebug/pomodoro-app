@@ -1,0 +1,93 @@
+.title {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.taskWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.taskList {
+    display: flex;
+    list-style: none;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    padding-inline-start: 0px;
+}
+.taskName {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.taskAdd {
+    box-sizing: border-box;
+    width: 100%;
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.8;
+    margin-top: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+}
+.taskAdd:hover {
+    border: 2px dashed rgba(255, 255, 255, 0.54);
+    opacity: 1;
+}
+.taskAdd .text {
+    color: #fff;
+    font-weight: bold;
+    opacity: 0.8;
+    font-size: 17px;
+}
+.taskAdd .icon {
+    margin-right: 5px;
+}
+.taskCreate {
+    display: flex;
+    height: 250px;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    background: #fff;
+}
+.setTimer {
+    color: #000;
+}
+.task.active {
+    background: black;
+}
+.task {
+    color: rgb(85, 85, 85);
+    font-weight: bold;
+    width: 100%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-left: 6px solid transparent;
+    transition: unset;
+    padding: 20px;
+    margin: 8px 0px;
+}
