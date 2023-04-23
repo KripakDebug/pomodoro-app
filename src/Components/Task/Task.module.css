@@ -24,10 +24,15 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     padding-inline-start: 0px;
 }
-.taskName {
+.taskNumber {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+.taskName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .taskAdd {
     box-sizing: border-box;
@@ -66,12 +71,26 @@ input::-webkit-inner-spin-button {
     padding: 20px;
     width: 100%;
     background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
+    animation: 0.1s ease-in-out 0s 1 normal none running expand;
 }
 .setTimer {
     color: #000;
 }
 .task.active {
-    background: black;
+    transform: translateY(2px);
+
+    border-left: 6px solid rgb(34, 34, 34);
+}
+.task.active:hover{
+    border-left: 6px solid rgb(34, 34, 34);
+}
+.taskName .icon {
+    font-size: 23px;
+    margin-right: 5px;
+
 }
 .task {
     color: rgb(85, 85, 85);
@@ -85,9 +104,139 @@ input::-webkit-inner-spin-button {
     font-size: 16px;
     display: flex;
     justify-content: space-between;
-    box-sizing: border-box;
+    align-items: center;
     border-left: 6px solid transparent;
     transition: unset;
     padding: 20px;
     margin: 8px 0px;
+}
+.task:hover {
+    border-left: 6px solid #d2d0d0;
+
+}
+form .taskName {
+    border-radius: 4px;
+    font-size: 22px;
+    padding: 10px 0px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    color: rgb(85, 85, 85);
+    width: 100%;
+    font-weight: bold;
+}
+
+form .taskName::placeholder {
+    color: rgba(85, 85, 85, 0.25);
+    font-style: oblique;
+}
+.task .taskOrder {
+    display: flex;
+    align-items: center;
+    color: rgb(187, 187, 187);
+}
+.taskOrder h1 {
+    font-size: 14px;
+    margin-left: 2px;
+}
+.taskOrder {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.51);
+}
+.setTimer p {
+    color: rgb(85, 85, 85);
+    font-weight: bold;
+}
+.setTimer input[type='number'] {
+    border-radius: 4px;
+    background-color: rgb(239, 239, 239);
+    font-size: 16px;
+    padding: 10px;
+    box-shadow: none;
+    border: none;
+    color: rgb(85, 85, 85);
+    width: 75px;
+    outline: none;
+    margin-right: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+
+}
+.taskSetting {
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    display: inline-block;
+    min-width: 0px;
+    width: 40px;
+    background-color: white;
+    color: rgb(85, 85, 85);
+    border: 1px solid rgb(223, 223, 223);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    margin: 10px 2px 0px;
+}
+.wrapperButtonForm {
+    background-color: rgb(239, 239, 239);
+    padding: 14px 20px;
+    position: absolute;
+    display: flex;
+justify-content: end;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.wrapperButtonForm button {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    color: white;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    background-color: rgb(34, 34, 34);
+    border: 2px solid rgb(34, 34, 34);
+}
+.wrapperButtonForm button:hover {
+    background-color: rgb(24, 24, 24);
+}
+.wrapperButtonForm div {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    margin-right: 14px;
+    background: none;
+    border: none;
+    color: rgb(136, 136, 136);
+    font-weight: bold;
+    box-shadow: none;
+}
+.wrapperButtonForm div:hover {
+    color: rgb(101, 101, 101);
+}
+@keyframes expand {
+    0% {
+        transform: scale(1, 0.8);
+        opacity: 0.1;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
 }

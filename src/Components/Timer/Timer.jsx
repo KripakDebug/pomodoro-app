@@ -15,6 +15,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
     const [intervalId, setIntervalId] = useState(null);
     const [pauseTimer, setPauseTimer] = useState(false);
     const [breakCount, setBreakCount] = useState(0);
+    const [focusCount, setFocusCount] = useState(0);
 
     useEffect(() => {
         document.title = `${formatTime(timer)} - Time for a focus!`;
@@ -25,6 +26,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
             if (currentInterval === 'focus') {
                 setCurrentInterval('relax');
                 setTimer(shortBrake);
+                setFocusCount(count => count + 1);
                 setBreakCount(count => count + 1);
             } else {
                 setCurrentInterval('focus');
@@ -84,7 +86,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
                </ul>
 
            </div>
-           <Task/>
+           <Task currentInterval={currentInterval} focusCount={focusCount}  />
 
        </div>
     )
@@ -105,6 +107,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
         if (currentInterval === "focus") {
             setCurrentInterval('relax');
             setTimer(shortBrake);
+            setFocusCount(count => count + 1);
             setBreakCount(count => count + 1);
             if (breakCount === 4) {
                 setCurrentInterval('longRelax');
@@ -129,6 +132,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
         stopTimer()
         setPauseTimer(false);
         setBreakCount(0);
+        setFocusCount(0);
         setTimer(focus)
         setCurrentInterval('focus');
     };

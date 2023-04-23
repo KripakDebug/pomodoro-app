@@ -2,42 +2,74 @@ import React, {useEffect, useState} from "react";
 import s from './Task.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from "classnames";
-function Task() {
+import {CaretDownOutlined, CaretUpOutlined, CheckCircleOutlined} from "@ant-design/icons";
+function Task(props) {
     const [count, setCount] = useState(1);
     const [isModalOpened, setIsModalOpened] = useState(false);
     const [stateTask, setStateTask] = useState([])
 
+
     useEffect(() => {
+        if(props.focusCount > 0) {
+            setStateTask(prevState => prevState.map(item => {
+                if (item.active) {
+                    return {
+                        ...item,
+                        cycle: props.focusCount
+                    }
+                }
+                return item;
+
+            }));
+        }
         if(count === 0) {
             setCount(1)
         }
-    }, [count])
+    }, [count, props.focusCount])
+
 
     return (
        <div className={s.taskWrapper}>
-           <div className={s.taskName}>
-               <div className={s.taskNumber}>#0</div>
-               dada
+           <div className={s.taskNumber}>
+               <div className={s.taskOrder}>#{props.focusCount}</div>
+               {stateTask.length === 0 ? (
+                   props.currentInterval === 'focus' ? 'Time for a focus!' :
+                       props.currentInterval === 'relax' ? 'Time for a break!' :
+                           props.currentInterval === 'longRelax' ? 'Time for a break!' :
+                               ''
+               ) : (
+                   stateTask.map((e) => {
+                       if (e.active) {
+                           return (
+                               <div key={e.id}>{e.name}</div>
+                           )
+                       }
+                       return null;
+                   })
+               )}
            </div>
            <ul className={s.taskList}>
                <li className={s.title}>Tasks</li>
                {stateTask.map((e) => {
                    return (
-                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}>{e.name} <span>0/{e.est}</span></li>
+                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined /></span> {e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> </span></li>
                    )
                })}
            </ul>
-           {!isModalOpened &&  <button className={s.taskAdd} onClick={() => setIsModalOpened(true)}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
+           {!isModalOpened &&  <button  className={s.taskAdd} onClick={() => setIsModalOpened(true)}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
            {isModalOpened &&    <div className={s.taskCreate}>
-               <form onSubmit={onSubmit}>
-                   <input type="text" id={'taskName'} placeholder={'What are you working on?'}/>
+               <form  onSubmit={onSubmit}>
+                   <input type="text" id={'taskName'} className={s.taskName} placeholder={'What are you working on?'}/>
                    <div className={s.setTimer}>
                        <p>Est Pomodoros</p>
                        <input id={'taskEst'} type="number" min={1} value={count}/>
-                       <span onClick={() => setCount(count+1)}>+</span>
-                       <span onClick={() => setCount(count-1)}>-</span>
+                       <span className={s.taskSetting} onClick={() => setCount(count+1)}><CaretUpOutlined /></span>
+                       <span className={s.taskSetting} onClick={() => setCount(count-1)}><CaretDownOutlined /></span>
                    </div>
-                   <button>save</button>
+                 <div className={s.wrapperButtonForm}>
+                     <div onClick={() => setIsModalOpened(false)}>Cancel</div>
+                     <button>Save</button>
+                 </div>
                </form>
            </div>}
        </div>
@@ -45,12 +77,25 @@ function Task() {
 
     function onSubmit(e) {
         e.preventDefault()
-        setStateTask(prevState => ([
-            ...prevState,
-                {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: false}
-            ]
-        ));
-        setIsModalOpened(false);
+        if(e.target.taskName.value !== ''){
+            if(stateTask.length === 0) {
+                setStateTask(prevState => ([
+                        ...prevState,
+                        {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: true, isComplicated: false,
+                            cycle: 0}
+                    ]
+                ));
+            }
+            setIsModalOpened(false);
+        }
+        if(stateTask.length > 0) {
+            setStateTask(prevState => ([
+                    ...prevState,
+                    {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: false, isComplicated: false,
+                        cycle: 0}
+                ]
+            ));
+        }
     }
     function onSelectTodo(todoId) {
         setStateTask(prevState => prevState.map(item => ({
@@ -59,6 +104,7 @@ function Task() {
         })));
 
     }
+
 }
 
 export default Task;
