@@ -16,9 +16,9 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
     const [pauseTimer, setPauseTimer] = useState(false);
     const [breakCount, setBreakCount] = useState(0);
     const [focusCount, setFocusCount] = useState(0);
-
+    const [timerTitle, setTitleItem] = useState(null);
     useEffect(() => {
-        document.title = `${formatTime(timer)} - Time for a focus!`;
+        document.title = `${formatTime(timer)} - Time for a ${timerTitle === null ? 'focus' : timerTitle}`;
         if (timer === 0) {
             new Audio(timerSound).play()
             stopTimer()
@@ -36,7 +36,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
         if (currentInterval === 'relax' || currentInterval === 'longRelax') {
             document.title = `${formatTime(timer)} - Time for a break!`;
         }
-    }, [timer, currentInterval, setPauseTimer, setCurrentInterval, setTimer, shortBrake, focus, stopTimer]);
+    }, [timer, currentInterval, setPauseTimer, setCurrentInterval, setTimer, shortBrake, focus, stopTimer, timerTitle]);
 
 
     useEffect(() => {
@@ -86,7 +86,7 @@ function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrent
                </ul>
 
            </div>
-           <Task currentInterval={currentInterval} focusCount={focusCount}  />
+           <Task setTitleItem={setTitleItem} currentInterval={currentInterval} focusCount={focusCount} />
 
        </div>
     )

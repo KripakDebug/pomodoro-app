@@ -10,18 +10,17 @@ function Task(props) {
 
 
     useEffect(() => {
-        if(props.focusCount > 0) {
             setStateTask(prevState => prevState.map(item => {
-                if (item.active) {
-                    return {
-                        ...item,
-                        cycle: props.focusCount
+                    if (item.active && !item.isComplicated) {
+                        return {
+                            ...item,
+                            cycle: props.currentInterval === 'relax' ? item.cycle + 1 : !props.focusCount && 0
+                        }
                     }
-                }
-                return item;
+                    return item;
 
             }));
-        }
+
         if(count === 0) {
             setCount(1)
         }
@@ -40,6 +39,7 @@ function Task(props) {
                ) : (
                    stateTask.map((e) => {
                        if (e.active) {
+                           props.setTitleItem(e.name)
                            return (
                                <div key={e.id}>{e.name}</div>
                            )
@@ -52,7 +52,8 @@ function Task(props) {
                <li className={s.title}>Tasks</li>
                {stateTask.map((e) => {
                    return (
-                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined /></span> {e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> </span></li>
+
+                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> </span></li>
                    )
                })}
            </ul>
@@ -78,7 +79,7 @@ function Task(props) {
     function onSubmit(e) {
         e.preventDefault()
         if(e.target.taskName.value !== ''){
-            if(stateTask.length === 0) {
+            if(!stateTask.length) {
                 setStateTask(prevState => ([
                         ...prevState,
                         {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: true, isComplicated: false,
@@ -88,7 +89,7 @@ function Task(props) {
             }
             setIsModalOpened(false);
         }
-        if(stateTask.length > 0) {
+        if(stateTask.length) {
             setStateTask(prevState => ([
                     ...prevState,
                     {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: false, isComplicated: false,
