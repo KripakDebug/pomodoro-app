@@ -49,18 +49,21 @@ function Task(props) {
                )}
            </div>
            <ul className={s.taskList}>
-               <li className={s.title}>Tasks <button onClick={() => setIsDropMenuOpened(!isDropMenuOpened)} className={s.burger}><MoreOutlined /> {isDropMenuOpened && <ul className={s.dropMenu}>
+               <li className={s.title}>Tasks <button onBlur={() => setIsDropMenuOpened(false)} onClick={() => setIsDropMenuOpened(!isDropMenuOpened)} className={s.burger}><MoreOutlined /> {isDropMenuOpened && <ul className={s.dropMenu}>
                    <li onClick={onStateChangeComplicated}><DeleteOutlined /> Clear finished tasks</li>
+                   <li onClick={onStateDelete}><DeleteOutlined /> Clear all tasks</li>
                </ul>}</button></li>
                {stateTask.map((e) => {
-                   return (
+                    if(e.show) {
+                        return (
 
-                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> <div onClick={() => setIsModalOpened(true)} className={s.taskBurger}>:</div> </span></li>
-                   )
+                            <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> <div onClick={() => setIsModalOpened(true)} className={s.taskBurger}>:</div> </span></li>
+                        )
+                    }
                })}
            </ul>
            {!isModalOpened &&  <button  className={s.taskAdd} onClick={() => setIsModalOpened(true)}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
-           {isModalOpened &&    <div className={s.taskCreate}>
+           {isModalOpened &&    <div onBlur={() => setIsModalOpened(false)} className={s.taskCreate}>
                <form  onSubmit={onSubmit}>
                    <input type="text" id={'taskName'} className={s.taskName} placeholder={'What are you working on?'}/>
                    <div className={s.setTimer}>
@@ -85,7 +88,7 @@ function Task(props) {
                 setStateTask(prevState => ([
                         ...prevState,
                         {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: true, isComplicated: false,
-                            cycle: 0}
+                            cycle: 0, show: true}
                     ]
                 ));
             }
@@ -95,7 +98,7 @@ function Task(props) {
             setStateTask(prevState => ([
                     ...prevState,
                     {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: false, isComplicated: false,
-                        cycle: 0}
+                        cycle: 0, show: true}
                 ]
             ));
         }
@@ -107,6 +110,9 @@ function Task(props) {
             active: item.id === todoId
         })));
 
+    }
+    function onStateDelete() {
+        setStateTask([]);
     }
     function onStateChangeComplicated() {
         setStateTask(prevState =>
