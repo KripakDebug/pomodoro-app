@@ -1,8 +1,21 @@
 .title {
-    border-bottom: 2px solid #fff;
     padding-bottom: 10px;
     font-size: 18px;
+    position: relative;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+}
+.title:before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.76);
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
 }
 .taskWrapper {
     display: flex;
@@ -229,6 +242,61 @@ justify-content: end;
 }
 .wrapperButtonForm div:hover {
     color: rgb(101, 101, 101);
+}
+.taskBurger {
+    font-size: 25px;
+    color: #000;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.burger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    background: none rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    margin-left: 10px;
+    font-size: 20px;
+    padding: 8px;
+    min-width: auto;
+    border: none;
+    color: white;
+}
+.dropMenu {
+    border-radius: 4px;
+    opacity: 1;
+    padding: 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
+    display: block;
+    pointer-events: auto;
+    position: absolute;
+    background-color: white;
+    transform: translateY(10px);
+    margin-top: 70px;
+    width: 210px;
+    right: 0px;
+    z-index: 6;
+    color: #000000;
+}
+.dropMenu li {
+    color: rgb(79, 43, 45);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 16px;
+    z-index: 6;
+    font-size: 14px;
+    cursor: pointer;
+}
+.dropMenu li:hover {
+    background: #f3f0f0;
+}
+.dropMenu span {
+    margin-right: 5px;
 }
 @keyframes expand {
     0% {

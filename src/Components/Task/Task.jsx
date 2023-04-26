@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import s from './Task.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from "classnames";
-import {CaretDownOutlined, CaretUpOutlined, CheckCircleOutlined} from "@ant-design/icons";
+import {CaretDownOutlined, CaretUpOutlined, CheckCircleOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 function Task(props) {
     const [count, setCount] = useState(1);
     const [isModalOpened, setIsModalOpened] = useState(false);
     const [stateTask, setStateTask] = useState([])
-
+    const [isDropMenuOpened, setIsDropMenuOpened] = useState(false);
 
     useEffect(() => {
             setStateTask(prevState => prevState.map(item => {
@@ -49,11 +49,13 @@ function Task(props) {
                )}
            </div>
            <ul className={s.taskList}>
-               <li className={s.title}>Tasks</li>
+               <li className={s.title}>Tasks <button onClick={() => setIsDropMenuOpened(!isDropMenuOpened)} className={s.burger}><MoreOutlined /> {isDropMenuOpened && <ul className={s.dropMenu}>
+                   <li onClick={onStateChangeComplicated}><DeleteOutlined /> Clear finished tasks</li>
+               </ul>}</button></li>
                {stateTask.map((e) => {
                    return (
 
-                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> </span></li>
+                       <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> <div onClick={() => setIsModalOpened(true)} className={s.taskBurger}>:</div> </span></li>
                    )
                })}
            </ul>
@@ -99,11 +101,17 @@ function Task(props) {
         }
     }
     function onSelectTodo(todoId) {
+
         setStateTask(prevState => prevState.map(item => ({
             ...item,
             active: item.id === todoId
         })));
 
+    }
+    function onStateChangeComplicated() {
+        setStateTask(prevState =>
+            prevState.filter(item => !item.isComplicated)
+        );
     }
 
 }
