@@ -63,7 +63,7 @@ function Task(props) {
                })}
            </ul>
            {!isModalOpened &&  <button  className={s.taskAdd} onClick={() => setIsModalOpened(true)}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
-           {isModalOpened &&    <div onBlur={() => setIsModalOpened(false)} className={s.taskCreate}>
+           {isModalOpened &&    <div className={s.taskCreate}>
                <form  onSubmit={onSubmit}>
                    <input type="text" id={'taskName'} className={s.taskName} placeholder={'What are you working on?'}/>
                    <div className={s.setTimer}>
