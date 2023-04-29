@@ -73,7 +73,7 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
                <div className={s.text}><span className={s.icon}>+</span>Add Task</div>
            </button>
            }
-           {isModalOpened && <TaskModal setIsModalOpened={setIsModalOpened} stateTask={stateTask} setStateTask={setStateTask}/>}
+           {isModalOpened && <TaskModal setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} />}
        </div>
     )
 
