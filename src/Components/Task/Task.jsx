@@ -1,30 +1,25 @@
 import React, {useEffect, useState} from "react";
 import s from './Task.module.css';
-import { v4 as uuidv4 } from 'uuid';
 import classNames from "classnames";
-import {CaretDownOutlined, CaretUpOutlined, CheckCircleOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
+import {CheckCircleOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
+import TaskModal from "../TaskModal/TaskModal";
 function Task(props) {
-    const [count, setCount] = useState(1);
     const [isModalOpened, setIsModalOpened] = useState(false);
     const [stateTask, setStateTask] = useState([])
     const [isDropMenuOpened, setIsDropMenuOpened] = useState(false);
-
+    const [elementCurrent, setElementCurrent] = useState([])
     useEffect(() => {
             setStateTask(prevState => prevState.map(item => {
-                    if (item.active && !item.isComplicated) {
+                    if (item.active && !item.isCompleted) {
                         return {
                             ...item,
                             cycle: props.currentInterval === 'relax' ? item.cycle + 1 : !props.focusCount && 0
                         }
                     }
                     return item;
-
             }));
 
-        if(count === 0) {
-            setCount(1)
-        }
-    }, [count, props.focusCount])
+    }, [props.focusCount])
 
 
     return (
@@ -50,61 +45,29 @@ function Task(props) {
            </div>
            <ul className={s.taskList}>
                <li className={s.title}>Tasks <button onBlur={() => setIsDropMenuOpened(false)} onClick={() => setIsDropMenuOpened(!isDropMenuOpened)} className={s.burger}><MoreOutlined /> {isDropMenuOpened && <ul className={s.dropMenu}>
-                   <li onClick={onStateChangeComplicated}><DeleteOutlined /> Clear finished tasks</li>
+                   <li onClick={onStateChangeCompleted}><DeleteOutlined /> Clear finished tasks</li>
                    <li onClick={onStateDelete}><DeleteOutlined /> Clear all tasks</li>
                </ul>}</button></li>
                {stateTask.map((e) => {
                     if(e.show) {
                         return (
-
-                            <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isComplicated = !e.isComplicated} /></span> {e.isComplicated ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> <div onClick={() => setIsModalOpened(true)} className={s.taskBurger}>:</div> </span></li>
+                            <li key={e.id} onClick={() => onSelectTodo(e.id)} className={classNames(s.task, {[s.active]: e.active})}> <div className={s.taskName}><span className={s.icon}><CheckCircleOutlined onClick={() => e.isCompleted = !e.isCompleted} /></span> {e.isCompleted ? <strike>{e.name}</strike> : e.name}</div> <span className={s.taskOrder}>{e.cycle} <h1>/{e.est}</h1> <div onClick={(event) => {
+                                setIsModalOpened(true)
+                                setElementCurrent([e, event])
+                            }} className={s.taskBurger}>:</div> </span></li>
                         )
                     }
                })}
            </ul>
-           {!isModalOpened &&  <button  className={s.taskAdd} onClick={() => setIsModalOpened(true)}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
-           {isModalOpened &&    <div className={s.taskCreate}>
-               <form  onSubmit={onSubmit}>
-                   <input type="text" id={'taskName'} className={s.taskName} placeholder={'What are you working on?'}/>
-                   <div className={s.setTimer}>
-                       <p>Est Pomodoros</p>
-                       <input id={'taskEst'} type="number" min={1} value={count}/>
-                       <span className={s.taskSetting} onClick={() => setCount(count+1)}><CaretUpOutlined /></span>
-                       <span className={s.taskSetting} onClick={() => setCount(count-1)}><CaretDownOutlined /></span>
-                   </div>
-                 <div className={s.wrapperButtonForm}>
-                     <div onClick={() => setIsModalOpened(false)}>Cancel</div>
-                     <button>Save</button>
-                 </div>
-               </form>
-           </div>}
+           {!isModalOpened &&  <button  className={s.taskAdd} onClick={(event) => {
+               setIsModalOpened(true)
+               setElementCurrent([event])
+           }}><div className={s.text}><span className={s.icon}>+</span>Add Task</div></button>}
+           {isModalOpened &&  <TaskModal elementCurrent={elementCurrent}  setIsModalOpened={setIsModalOpened} stateTask={stateTask} setStateTask={setStateTask}/>}
        </div>
     )
 
-    function onSubmit(e) {
-        e.preventDefault()
-        if(e.target.taskName.value !== ''){
-            if(!stateTask.length) {
-                setStateTask(prevState => ([
-                        ...prevState,
-                        {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: true, isComplicated: false,
-                            cycle: 0, show: true}
-                    ]
-                ));
-            }
-            setIsModalOpened(false);
-        }
-        if(stateTask.length) {
-            setStateTask(prevState => ([
-                    ...prevState,
-                    {id: uuidv4(), name: e.target.taskName.value, est: e.target.taskEst.value, active: false, isComplicated: false,
-                        cycle: 0, show: true}
-                ]
-            ));
-        }
-    }
     function onSelectTodo(todoId) {
-
         setStateTask(prevState => prevState.map(item => ({
             ...item,
             active: item.id === todoId
@@ -114,9 +77,9 @@ function Task(props) {
     function onStateDelete() {
         setStateTask([]);
     }
-    function onStateChangeComplicated() {
+    function onStateChangeCompleted() {
         setStateTask(prevState =>
-            prevState.filter(item => !item.isComplicated)
+            prevState.filter(item => !item.isCompleted)
         );
     }
 
