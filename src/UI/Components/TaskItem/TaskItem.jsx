@@ -5,7 +5,7 @@ import {CheckCircleOutlined, MoreOutlined} from "@ant-design/icons";
 import TaskModal from "../TaskModal/TaskModal";
 
 export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }) {
-    const { id, active, isCompleted, name, cycle, est } = taskInformation;
+    const { id, active, isCompleted, name, cycle, est, show } = taskInformation;
     const [isModalOpened, setIsModalOpened] = useState(false);
 
     return (
@@ -37,4 +37,5 @@ export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }
             return task;
         }))
     }
+
 }

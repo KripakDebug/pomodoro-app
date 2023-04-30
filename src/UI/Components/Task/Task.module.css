@@ -224,6 +224,7 @@ justify-content: end;
     background-color: rgb(24, 24, 24);
 }
 .wrapperButtonForm div {
+    display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -297,6 +298,10 @@ justify-content: end;
 }
 .dropMenu span {
     margin-right: 5px;
+}
+.btnDelete {
+    position: absolute;
+    left: 20px;
 }
 @keyframes expand {
     0% {

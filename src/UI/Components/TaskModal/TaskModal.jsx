@@ -32,6 +32,7 @@ export default function TaskModal({ setStateTask, setIsModalOpened, taskInformat
                           onClick={() => taskInformation ?  changePomodoroCyclesCount(-1) : !!count && changePomodoroCyclesCount(-1)}><CaretDownOutlined/></span>
                 </div>
                 <div className={s.wrapperButtonForm}>
+                    {taskInformation && <div onClick={(e) => deleteTask(e)} className={s.btnDelete}>Delete</div>}
                     <div onClick={() => setIsModalOpened(false)}>Cancel</div>
                     <button>Save</button>
                 </div>
@@ -48,6 +49,14 @@ export default function TaskModal({ setStateTask, setIsModalOpened, taskInformat
         } else {
             setCount(prevState => Math.max(0, prevState + x));
         }
+    }
+    function deleteTask() {
+        setStateTask(prevState => prevState.filter(task => {
+            if (task.id === taskInformation.id) {
+                    return task.id !== taskInformation.id
+            }
+            return task;
+        }))
     }
 
     function changePomodoroNameTask(e) {
