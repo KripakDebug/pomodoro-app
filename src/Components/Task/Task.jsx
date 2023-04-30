@@ -27,7 +27,7 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
                        setTitleItem={setTitleItem} focusCount={focusCount}/>
            <TaskList setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} stateTask={stateTask}
                      onStateChangeCompleted={onStateChangeCompleted} />
-           {!isModalOpened && <button  className={s.taskAdd} onClick={() => {
+           {!isModalOpened && <button className={s.taskAdd} onClick={() => {
                setIsModalOpened(true)
            }}>
                <div className={s.text}><span className={s.icon}>+</span>Add Task</div>
