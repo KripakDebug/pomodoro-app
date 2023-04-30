@@ -8,20 +8,19 @@ function ModalWindow({currentInterval, setFocus, setTimer, setLongBrake, setShor
     return (
         <div>
             <button onClick={toggleModal} className={s.timerSetting}><SettingOutlined/> Setting Timer</button>
-        <Modal title="Setting Timer" open={isModalOpen} footer={null} onOk={toggleModal}
-               onCancel={toggleModal}>
+        <Modal title="Setting Timer" open={isModalOpen} footer={null} onOk={toggleModal} onCancel={toggleModal}>
             <form className={s.form} onSubmit={onSubmit}>
                 <div>
-                    <label htmlFor="focusTime">Focus</label>
-                    <InputNumber min={1} max={99} id={'focusTime'} type="number"/>
+                    <label htmlFor="focus">Focus</label>
+                    <InputNumber min={1} max={99} id='focus' type="number"/>
                 </div>
                 <div>
-                    <label htmlFor="relaxTime">Short Brake</label>
-                    <InputNumber min={1} max={99} id={'relaxTime'} type="number"/>
+                    <label htmlFor="relax">Short Brake</label>
+                    <InputNumber min={1} max={99} id='relax' type="number"/>
                 </div>
                 <div>
-                    <label htmlFor="longBrake">Long Brake</label>
-                    <InputNumber min={1} max={99} id={'longBrake'} type="number"/>
+                    <label htmlFor="longRelax">Long Brake</label>
+                    <InputNumber min={1} max={99} id='longRelax' type="number"/>
                 </div>
                 <button onClick={toggleModal}>Submit</button>
             </form>
@@ -34,29 +33,15 @@ function ModalWindow({currentInterval, setFocus, setTimer, setLongBrake, setShor
    }
 
     function onSubmit(e) {
-        e.preventDefault()
-        if (currentInterval === 'focus') {
-            setTimer(e.target.focusTime.value * 60);
-        }
-        if (currentInterval === 'relax') {
-            setTimer(e.target.relaxTime.value * 60);
-        }
-        if (currentInterval === 'longRelax') {
-            setTimer(e.target.longBrake.value * 60);
-        }
-        if (e.target.focusTime.value !== '') {
-            setFocus(e.target.focusTime.value * 60);
-        }
+        const { target, target: { focus, relax, longRelax } } = e;
+        e.preventDefault();
 
-        if (e.target.relaxTime.value !== '') {
-            setShortBrake(e.target.relaxTime.value * 60);
-        }
+        setTimer(target[currentInterval].value * 60);
 
-        if (e.target.longBrake.value !== '') {
-            setLongBrake(e.target.longBrake.value * 60);
-        }
-    };
-
+        focus.value && setFocus(focus.value * 60);
+        relax.value && setShortBrake(relax.value * 60);
+        longRelax.value && setLongBrake(longRelax.value * 60);
+    }
 }
 
 export default ModalWindow;

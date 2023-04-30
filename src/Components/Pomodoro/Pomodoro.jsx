@@ -20,12 +20,23 @@ function Pomodoro() {
     return (
         <div className={classes}>
             <div className={s.timerWrap}>
-                <ModalWindow currentInterval={currentInterval} setTimer={setTimer}
-                             setFocus={setFocus} setShortBrake={setShortBrake} setLongBrake={setLongBrake}/>
+                <ModalWindow
+                    currentInterval={currentInterval}
+                    setTimer={setTimer}
+                    setFocus={setFocus}
+                    setShortBrake={setShortBrake}
+                    setLongBrake={setLongBrake}
+                />
 
-                <Timer  timer={timer} setTimer={setTimer}
-                       shortBrake={shortBrake} focus={focus} longBrake={longBrake}
-                       setCurrentInterval={setCurrentInterval} currentInterval={currentInterval}/>
+                <Timer
+                    timer={timer}
+                    setTimer={setTimer}
+                    shortBrake={shortBrake}
+                    focus={focus}
+                    longBrake={longBrake}
+                    setCurrentInterval={setCurrentInterval}
+                    currentInterval={currentInterval}
+                />
             </div>
         </div>
     )
