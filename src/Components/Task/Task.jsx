@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
 import s from './Task.module.css';
-import {DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 import TaskModal from "../TaskModal/TaskModal";
-import TaskItem from "../TaskItem/TaskItem";
 import TaskNumber from "../TaskNumber/TaskNumber";
+import TaskList from "../TaskList/TaskList";
 
 function Task({ setTitleItem, currentInterval, focusCount}) {
     const [isModalOpened, setIsModalOpened] = useState(false);
     const [stateTask, setStateTask] = useState([]);
-    const [isDropMenuOpened, setIsDropMenuOpened] = useState(false);
 
     useEffect(() => {
         setStateTask(prevState => prevState.map(item => {
@@ -27,30 +25,8 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
        <div className={s.taskWrapper}>
            <TaskNumber stateTask={stateTask} currentInterval={currentInterval}
                        setTitleItem={setTitleItem} focusCount={focusCount}/>
-           <ul className={s.taskList}>
-               <li className={s.title}> Tasks
-                   <button
-                       onBlur={() => setIsDropMenuOpened(false)}
-                       onClick={() => setIsDropMenuOpened(!isDropMenuOpened)}
-                       className={s.burger}
-                   >
-                        <MoreOutlined />
-                        {isDropMenuOpened && (
-                            <ul className={s.dropMenu}>
-                                <li onClick={onStateChangeCompleted}><DeleteOutlined /> Clear finished tasks</li>
-                                <li onClick={() => setStateTask([])}><DeleteOutlined /> Clear all tasks</li>
-                            </ul>
-                        )}
-                   </button>
-               </li>
-               {stateTask?.map(currentTaskInformation => <TaskItem
-                   taskInformation={currentTaskInformation}
-                   setIsModalOpened={setIsModalOpened}
-                   onSelectTodo={onSelectTodo}
-                   setStateTask={setStateTask}
-               />
-               )}
-           </ul>
+           <TaskList setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} stateTask={stateTask}
+                     onStateChangeCompleted={onStateChangeCompleted} />
            {!isModalOpened && <button  className={s.taskAdd} onClick={() => {
                setIsModalOpened(true)
            }}>
@@ -61,12 +37,6 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
        </div>
     )
 
-    function onSelectTodo(todoId) {
-        setStateTask(prevState => prevState.map(item => ({
-            ...item,
-            active: item.id === todoId
-        })));
-    }
 
     function onStateChangeCompleted() {
         setStateTask(prevState =>

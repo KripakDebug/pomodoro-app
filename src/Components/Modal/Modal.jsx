@@ -3,7 +3,7 @@ import s from "../Pomodoro/Pomodoro.module.css";
 import {InputNumber, Modal} from "antd";
 import {SettingOutlined} from "@ant-design/icons";
 
-function ModalWindow(props) {
+function ModalWindow({currentInterval, setFocus, setTimer, setLongBrake, setShortBrake}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div>
@@ -35,25 +35,25 @@ function ModalWindow(props) {
 
     function onSubmit(e) {
         e.preventDefault()
-        if (props.currentInterval === 'focus') {
-            props.setTimer(e.target.focusTime.value * 60);
+        if (currentInterval === 'focus') {
+            setTimer(e.target.focusTime.value * 60);
         }
-        if (props.currentInterval === 'relax') {
-            props.setTimer(e.target.relaxTime.value * 60);
+        if (currentInterval === 'relax') {
+            setTimer(e.target.relaxTime.value * 60);
         }
-        if (props.currentInterval === 'longRelax') {
-            props.setTimer(e.target.longBrake.value * 60);
+        if (currentInterval === 'longRelax') {
+            setTimer(e.target.longBrake.value * 60);
         }
         if (e.target.focusTime.value !== '') {
-            props.setFocus(e.target.focusTime.value * 60);
+            setFocus(e.target.focusTime.value * 60);
         }
 
         if (e.target.relaxTime.value !== '') {
-            props.setShortBrake(e.target.relaxTime.value * 60);
+            setShortBrake(e.target.relaxTime.value * 60);
         }
 
         if (e.target.longBrake.value !== '') {
-            props.setLongBrake(e.target.longBrake.value * 60);
+            setLongBrake(e.target.longBrake.value * 60);
         }
     };
 
