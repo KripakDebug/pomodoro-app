@@ -10,7 +10,7 @@ export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }
 
     return (
         <>
-            <li key={id} onClick={() =>
+            {!isModalOpened && <li key={id} onClick={() =>
                 onSelectTodo(id)} className={classNames(s.task, {[s.active]: active})}>
                 <div className={s.taskName}>
           <span className={s.icon}>
@@ -24,7 +24,7 @@ export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }
           <div onClick={() => setIsModalOpened(prevState => !prevState)} className={s.taskBurger}><MoreOutlined />
           </div>
                 </span>
-            </li>
+            </li>}
 
             {isModalOpened && <TaskModal setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} taskInformation={taskInformation} />}
         </>
