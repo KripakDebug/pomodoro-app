@@ -20,14 +20,16 @@ export default function TaskModal({ setStateTask, setIsModalOpened, taskInformat
     return (
         <div className={s.taskCreate}>
             <form onSubmit={onSubmit}>
-                <input type="text" id='taskName' value={shallowTaskInformation.name} onChange={(e) => setShallowTaskInformation(e.target.value)} className={s.taskName} placeholder={'What are you working on?'}/>
+                <input type="text" id='taskName' value={shallowTaskInformation.name}
+                       onChange={(e) => changePomodoroNameTask(e)}
+                       className={s.taskName} placeholder={'What are you working on?'}/>
                 <div className={s.setTimer}>
                     <p>Est Pomodoros</p>
-                    <input id='taskEst' type="number" min={1} value={taskInformation ? shallowTaskInformation.est : count}/>
+                    <input id='taskEst' type="number" min={1} value={taskInformation ? shallowTaskInformation.est : count} />
                     <span className={s.taskSetting}
                           onClick={() => changePomodoroCyclesCount(1)}><CaretUpOutlined/></span>
                     <span className={s.taskSetting}
-                          onClick={() => taskInformation ? changePomodoroCyclesCount(-1) : !!count && changePomodoroCyclesCount(-1)}><CaretDownOutlined/></span>
+                          onClick={() => taskInformation ?  changePomodoroCyclesCount(-1) : !!count && changePomodoroCyclesCount(-1)}><CaretDownOutlined/></span>
                 </div>
                 <div className={s.wrapperButtonForm}>
                     <div onClick={() => setIsModalOpened(false)}>Cancel</div>
@@ -38,13 +40,21 @@ export default function TaskModal({ setStateTask, setIsModalOpened, taskInformat
     )
 
     function changePomodoroCyclesCount(x) {
-        setCount(prevState => prevState + x);
-        if(taskInformation) {
+        if (taskInformation) {
             setShallowTaskInformation(prevState => ({
                 ...prevState,
-                est: prevState.est + x
-            }))
+                est: Math.max(0, prevState.est + x)
+            }));
+        } else {
+            setCount(prevState => Math.max(0, prevState + x));
         }
+    }
+
+    function changePomodoroNameTask(e) {
+        setShallowTaskInformation((prevState) => ({
+            ...prevState,
+            name: e.target.value,
+        }))
     }
 
     function onSubmit(e) {
@@ -57,7 +67,7 @@ export default function TaskModal({ setStateTask, setIsModalOpened, taskInformat
                 if (task.id === taskInformation.id) {
                     return {...taskInformation, name: taskName.value, est: +taskEst.value}
                 }
-                return taskInformation;
+                return task;
             }))
             setIsModalOpened(false)
             return;

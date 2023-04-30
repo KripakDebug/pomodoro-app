@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import classNames from "classnames";
 import s from "../Task/Task.module.css";
-import {CheckCircleOutlined} from "@ant-design/icons";
+import {CheckCircleOutlined, MoreOutlined} from "@ant-design/icons";
 import TaskModal from "../TaskModal/TaskModal";
 
 export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }) {
@@ -21,7 +21,7 @@ export default function TaskItem({ taskInformation, onSelectTodo, setStateTask }
                 <span className={s.taskOrder}>
           {cycle}
                     <h1>/{est}</h1>
-          <div onClick={() => setIsModalOpened(prevState => !prevState)} className={s.taskBurger}>:
+          <div onClick={() => setIsModalOpened(prevState => !prevState)} className={s.taskBurger}><MoreOutlined />
           </div>
                 </span>
             </li>

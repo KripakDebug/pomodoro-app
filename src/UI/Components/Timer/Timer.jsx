@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import s from "../Pomodoro/Pomodoro.module.css";
 import {StepForwardOutlined, UndoOutlined} from "@ant-design/icons";
-import click from "../../audio/click.mp3";
-import timerSound from "../../audio/timergo.mp3";
-import favicon from "../../icons/favicon.ico";
-import faviconGreen from "../../icons/favicon-green.ico";
-import faviconBlue from "../../icons/favicon-blue.ico";
-import faviconGray from "../../icons/favicon-gray.ico";
+import click from "../../../audio/click.mp3";
+import timerSound from "../../../audio/timergo.mp3";
+import favicon from "../../../icons/favicon.ico";
+import faviconGreen from "../../../icons/favicon-green.ico";
+import faviconBlue from "../../../icons/favicon-blue.ico";
+import faviconGray from "../../../icons/favicon-gray.ico";
 import {Helmet} from "react-helmet";
 import Task from "../Task/Task";
 

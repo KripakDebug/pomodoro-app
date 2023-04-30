@@ -3,6 +3,7 @@ import s from './Task.module.css';
 import {DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 import TaskModal from "../TaskModal/TaskModal";
 import TaskItem from "../TaskItem/TaskItem";
+import TaskNumber from "../TaskNumber/TaskNumber";
 
 function Task({ setTitleItem, currentInterval, focusCount}) {
     const [isModalOpened, setIsModalOpened] = useState(false);
@@ -24,25 +25,8 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
 
     return (
        <div className={s.taskWrapper}>
-           <div className={s.taskNumber}>
-               <div className={s.taskOrder}>#{focusCount}</div>
-               {stateTask.length === 0 ? (
-                   currentInterval === 'focus' ? 'Time for a focus!' :
-                       currentInterval === 'relax' ? 'Time for a break!' :
-                           currentInterval === 'longRelax' ? 'Time for a break!' :
-                               ''
-               ) : (
-                   stateTask.map((e) => {
-                       if (e.active) {
-                           setTitleItem(e.name)
-                           return (
-                               <div key={e.id}>{e.name}</div>
-                           )
-                       }
-                       return null;
-                   })
-               )}
-           </div>
+           <TaskNumber stateTask={stateTask} currentInterval={currentInterval}
+                       setTitleItem={setTitleItem} focusCount={focusCount}/>
            <ul className={s.taskList}>
                <li className={s.title}> Tasks
                    <button
