@@ -1,7 +1,7 @@
 import React from "react";
 import s from "../../Pomodoro/Pomodoro.module.css";
 import {StepForwardOutlined, UndoOutlined} from "@ant-design/icons";
-import Button from "../../../Ui/Button";
+import Button from "../../../UI/Button";
 
 export default function ListBtnTimer({running, nextTimer, startTimer, stopTimer, clearTimer}) {
     return (

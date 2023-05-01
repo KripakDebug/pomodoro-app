@@ -3,6 +3,7 @@ import s from './Task.module.css';
 import TaskModal from "../TaskModal/TaskModal";
 import TaskNumber from "../TaskNumber/TaskNumber";
 import TaskList from "../TaskList/TaskList";
+import Button from "../../UI/Button";
 
 function Task({ setTitleItem, currentInterval, focusCount}) {
     const [isModalOpened, setIsModalOpened] = useState(false);
@@ -27,11 +28,11 @@ function Task({ setTitleItem, currentInterval, focusCount}) {
                        setTitleItem={setTitleItem} focusCount={focusCount}/>
            <TaskList setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} stateTask={stateTask}
                      onStateChangeCompleted={onStateChangeCompleted} />
-           {!isModalOpened && <button className={s.taskAdd} onClick={() => {
+           {!isModalOpened && <Button className={s.taskAdd} onClick={() => {
                setIsModalOpened(true)
            }}>
                <div className={s.text}><span className={s.icon}>+</span>Add Task</div>
-           </button>
+           </Button>
            }
            {isModalOpened && <TaskModal setStateTask={setStateTask} setIsModalOpened={setIsModalOpened} />}
        </div>

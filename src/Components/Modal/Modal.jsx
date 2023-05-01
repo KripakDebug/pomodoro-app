@@ -3,7 +3,7 @@ import s from "../Pomodoro/Pomodoro.module.css";
 import {InputNumber, Modal} from "antd";
 import {SettingOutlined} from "@ant-design/icons";
 import {usePomodoro} from "../Pomodoro/PomodoroContext";
-import Button from "../../Ui/Button";
+import Button from "../../UI/Button";
 
 function ModalWindow() {
     const {currentInterval, setFocus, setTimer, setLongBrake, setShortBrake} = usePomodoro();
