@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
 import s from "../Pomodoro/Pomodoro.module.css";
-import {StepForwardOutlined, UndoOutlined} from "@ant-design/icons";
 import click from "../../audio/click.mp3";
 import timerSound from "../../audio/timergo.mp3";
 import Task from "../Task/Task";
 import Title from "./Title/Title";
 import TimerUpdate from "./TimerUpdate/TimerUpdate";
 import ListBtnTimer from "./ListBtnTimer/ListBtnTimer";
+import {usePomodoro} from "../Pomodoro/PomodoroContext";
 
-function Timer({currentInterval, timer, focus, shortBrake, longBrake, setCurrentInterval, setTimer}) {
+function Timer() {
+    const {currentInterval, timer, focus, shortBrake, longBrake, setCurrentInterval, setTimer} = usePomodoro();
+
     const [running, setRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [pauseTimer, setPauseTimer] = useState(false);

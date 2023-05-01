@@ -1,20 +1,29 @@
 import React from "react";
-import s from "../../Pomodoro/Pomodoro.module.css";
-
-
+import Button from "../../../Ui/Button";
 
 export default function TimerUpdate({onClickTimer, currentInterval}) {
     return (
-        <div className={s.timerUpdate}>
-            <button onClick={() => onClickTimer('focus')}
-                    className={currentInterval === 'focus' && s.active}>Focus
-            </button>
-            <button onClick={() => onClickTimer('relax')} className={currentInterval === 'relax' && s.active}>Short
-                Brake
-            </button>
-            <button onClick={() => onClickTimer('longRelax')}
-                    className={currentInterval === 'longRelax' && s.active}>Long Brake
-            </button>
+        <div>
+            <Button
+                type="ghost"
+                onClick={() => onClickTimer('focus')}
+                isActive={currentInterval === 'focus'}>
+                Focus
+            </Button>
+
+            <Button
+                type="ghost"
+                onClick={() => onClickTimer('relax')}
+                isActive={currentInterval === 'relax'}>
+                Short Brake
+            </Button>
+
+            <Button
+                type="ghost"
+                onClick={() => onClickTimer('longRelax')}
+                isActive={currentInterval === 'longRelax'}>
+                Long Brake
+            </Button>
         </div>
     )
 }
